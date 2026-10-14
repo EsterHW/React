@@ -24,6 +24,35 @@ body {
   padding: 2rem 1.25rem;
 }
 
+/* שדה שם המשתמש — יושב מעל הכותרת */
+.name-input {
+  margin-bottom: 1.25rem;
+}
+
+.name-input__label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  margin-bottom: 0.25rem;
+}
+
+.name-input__field {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: #fff;
+  font: inherit;
+  color: inherit;
+}
+
+.name-input__field:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 0;
+  border-color: #2563eb;
+}
+
 .app-header {
   border-bottom: 2px solid var(--color-border);
   padding-bottom: 1rem;
@@ -74,6 +103,8 @@ body {
 }
 
 .task-list__item {
+  display: flex;
+  align-items: stretch;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -81,9 +112,9 @@ body {
   border-bottom: none;
 }
 
-/* הכפתור ממלא את כל השורה, כדי שכל שטח השורה יהיה לחיץ */
+/* הכפתור תופס את כל המקום הפנוי, כדי שכל שטח השורה יהיה לחיץ */
 .task-list__toggle {
-  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -99,6 +130,21 @@ body {
 
 .task-list__toggle:hover {
   background: #f4f4f5;
+}
+
+/* כפתור המחיקה — צר, ורק הסמל נראה כברירת מחדל */
+.task-list__delete {
+  padding: 0 0.75rem;
+  border: none;
+  background: none;
+  color: var(--color-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.task-list__delete:hover {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 /* סימון ברור למשתמשי מקלדת — בלי זה אי אפשר לדעת מה בפוקוס */
@@ -123,4 +169,55 @@ body {
 
 .task-list__empty {
   color: var(--color-muted);
+}
+
+/* טופס הוספת משימה — שדה וכפתור זה לצד זה */
+.add-task {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-task__field {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: #fff;
+  font: inherit;
+  color: inherit;
+}
+
+.add-task__field:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 0;
+  border-color: #2563eb;
+}
+
+.add-task__submit {
+  padding: 0.5rem 1rem;
+  border: 1px solid #2563eb;
+  border-radius: 0.5rem;
+  background: #2563eb;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-task__submit:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.add-task__submit:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* מצב מושבת — ברור שהכפתור לא פעיל כרגע */
+.add-task__submit:disabled {
+  background: #e4e4e7;
+  border-color: #e4e4e7;
+  color: var(--color-muted);
+  cursor: not-allowed;
 }

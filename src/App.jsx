@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import Header from './components/Header.jsx'
+import NameInput from './components/NameInput.jsx'
+import AddTaskForm from './components/AddTaskForm.jsx'
 import TaskSummary from './components/TaskSummary.jsx'
 import TaskList from './components/TaskList.jsx'
 
@@ -41,6 +43,9 @@ const USER = {
   role: 'תפקיד 1',
 }
 
+/** שם ברירת המחדל שמופיע בשדה ובכותרת לפני שהמשתמש מקליד. */
+const DEFAULT_NAME = USER.name
+
 /**
  * App — קומפוננטת האב.
  *
@@ -50,6 +55,11 @@ const USER = {
  */
 function App() {
   const [tasks, setTasks] = useState(INITIAL_TASKS)
+  const [name, setName] = useState(DEFAULT_NAME)
+
+  // הכותרת נגזרת מהשם בכל רינדור — לא נשמרת ב-state נפרד.
+  // אילו שמרנו גם את הכותרת ב-state, שני הערכים היו עלולים להתפצל.
+  const title = name.trim() ? `המשימות של ${name.trim()}` : 'מערכת ניהול משימות'
 
   /**
    * הופך את הסטטוס של משימה בודדת לפי id.
@@ -66,10 +76,47 @@ function App() {
     )
   }
 
+  /**
+   * מוחק משימה לפי id.
+   *
+   * @param {number} id - המזהה של המשימה למחיקה
+   */
+  const deleteTask = (id) => {
+    // filter מחזיר מערך חדש בלי המשימה — לא מוחקים מהמערך המקורי
+    setTasks((prev) => prev.filter((task) => task.id !== id))
+  }
+
+  /**
+   * מוסיף משימה חדשה בסוף הרשימה, בסטטוס "פתוחה".
+   *
+   * @param {string} title - שם המשימה החדשה
+   */
+  const addTask = (title) => {
+    setTasks((prev) => {
+      // המזהה חייב להיות ייחודי. לקיחת האורך (prev.length + 1) נראית
+      // פשוטה אבל שוברת את ה-key: אחרי מחיקה, אורך קטן ואפשר לקבל id כפול.
+      // לכן מחשבים את המקסימום הקיים ומוסיפים אחד.
+      const nextId = prev.length === 0 ? 1 : Math.max(...prev.map((t) => t.id)) + 1
+
+      return [...prev, { id: nextId, title, status: STATUS.OPEN }]
+    })
+  }
+
   return (
     <div className="app">
+      {/*
+        השדה הוא controlled component: value מגיע מה-state שלנו,
+        ו-onChange מחזיר את הטקסט שהוקלד. כך ה-title שלמעלה מתעדכן מיד.
+      */}
+      <NameInput
+        value={name}
+        onChange={setName}
+        label="שם המשתמש"
+        placeholder="הקלידו שם"
+      />
+
       {/* props: title, name, role. הילדים מועברים כ-children */}
-      <Header title="מערכת ניהול משימות" name={USER.name} role={USER.role}>
+      <Header title={title} name={name} role={USER.role}>
         <p className="app-header__subtitle">טקסט לדוגמה</p>
       </Header>
 
@@ -80,7 +127,13 @@ function App() {
           בלי לייבא את STATUS מהאב (מה שיצור ייבוא מעגלי).
         */}
         <TaskSummary tasks={tasks} doneStatus={STATUS.DONE} />
-        <TaskList tasks={tasks} onToggle={toggleTask} doneStatus={STATUS.DONE} />
+        <AddTaskForm onAdd={addTask} />
+        <TaskList
+          tasks={tasks}
+          onToggle={toggleTask}
+          onDelete={deleteTask}
+          doneStatus={STATUS.DONE}
+        />
       </main>
     </div>
   )
