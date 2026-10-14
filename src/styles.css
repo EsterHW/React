@@ -1,0 +1,126 @@
+/* עיצוב בסיסי. הצבעים ניטרליים ונוחים לקריאה. */
+:root {
+  --color-open: #b45309;
+  --color-done: #15803d;
+  --color-border: #d4d4d8;
+  --color-muted: #52525b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  color: #18181b;
+  background: #fafafa;
+}
+
+.app {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+.app-header {
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+}
+
+.app-header__user {
+  margin: 0;
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-weight: 600;
+}
+
+.app-header__role {
+  font-weight: 400;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.app-header__subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.task-summary {
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: #fff;
+  overflow: hidden;
+}
+
+.task-list__item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.task-list__item:last-child {
+  border-bottom: none;
+}
+
+/* הכפתור ממלא את כל השורה, כדי שכל שטח השורה יהיה לחיץ */
+.task-list__toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.task-list__toggle:hover {
+  background: #f4f4f5;
+}
+
+/* סימון ברור למשתמשי מקלדת — בלי זה אי אפשר לדעת מה בפוקוס */
+.task-list__toggle:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: -2px;
+}
+
+.task-list__status {
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status--open {
+  color: var(--color-open);
+}
+
+.status--done {
+  color: var(--color-done);
+}
+
+.task-list__empty {
+  color: var(--color-muted);
+}

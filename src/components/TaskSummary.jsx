@@ -1,15 +1,22 @@
-function TaskSummary({ tasks }) {
+/**
+ * TaskSummary — מציגה סיכום: "יש X משימות, מתוכן Y הושלמו."
+ *
+ * הקומפוננטה מקבלת את מערך המשימות ומחשבת בעצמה,
+ * כדי שלא תהיה תלויה בכך שהאב יחשב עבורה.
+ * כיוון שהיא מקבלת את אותו מערך ש-TaskList מקבל,
+ * כל שינוי סטטוס מתבטא כאן מיד.
+ *
+ * @param {Array<{id: number, title: string, status: string}>} tasks - מערך המשימות
+ * @param {string} doneStatus - הערך שמייצג "הושלמה", לספירת המשימות המסומנות
+ */
+function TaskSummary({ tasks, doneStatus }) {
   const total = tasks.length
-  const done = tasks.filter((task) => task.completed).length
-  const allDone = total > 0 && done === total
+  const completed = tasks.filter((task) => task.status === doneStatus).length
 
   return (
-    <section className="summary">
-      <p>
-        הושלמו {done} מתוך {total}
-      </p>
-      <p>{allDone ? 'כל המשימות הושלמו' : 'יש משימות שטרם הושלמו'}</p>
-    </section>
+    <p className="task-summary">
+      יש {total} משימות, מתוכן {completed} הושלמו.
+    </p>
   )
 }
 

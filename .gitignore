@@ -1,1 +1,15 @@
+# תלויות — מותקנות מחדש עם npm install, לא שייכות ל-git
 node_modules
+
+# תיקיית הבנייה — נוצרת מחדש בכל npm run build
+dist
+
+# קבצי לוג
+*.log
+npm-debug.log*
+
+# קבצי עורך וסביבה
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
