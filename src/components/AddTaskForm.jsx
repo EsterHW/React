@@ -13,7 +13,7 @@ import { useState } from 'react'
 function AddTaskForm({ onAdd }) {
   // הטקסט שהוקלד — מקומי, כי הוא זמני עד השליחה
   const [text, setText] = useState('')
-
+// לגיט
   /**
    * שולח את המשימה החדשה החוצה ומנקה את השדה.
    * @param {React.FormEvent} event
